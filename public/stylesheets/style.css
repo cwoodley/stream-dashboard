@@ -1,0 +1,27 @@
+body {
+  color: blue;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.canvas {
+  height: 720px;
+  overflow: hidden;
+  width: 1280px;
+  position: relative;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.block {
+  position: absolute;
+}
+
+#bottom-left {
+  background: red;
+  bottom: 0;
+  left: 0;
+}

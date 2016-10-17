@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+<div class="canvas">
+  {% for block in blocks %}
+  <div class="block" id="{{block.position}}">
+    {{block.name}}
+  </div>
+  {% endfor %}
+</div>
+
+
+{% endblock %}
