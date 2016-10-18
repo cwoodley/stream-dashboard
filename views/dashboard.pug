@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  script.
+    $(document).ready(function(){
+      $('form').submit(function(){
+        console.log('form submitted');
+      });
+    });
+
+
+  h1= title
+
+  form(action="/dashboard", method="post")
+
+    div.input-group
+      label Current Game
+      input(type="text", class="form-control", placeholder="Current Game", name="currentGame")
+
+    button(type='submit', class="btn btn-default", id="save-currentgame")
+      span Save

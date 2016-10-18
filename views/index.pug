@@ -1,0 +1,11 @@
+extends layout
+
+block content
+
+  script.
+      var socket = io('//localhost:3000');
+      socket.on('currentGame', function (data) {
+        $('div#currentGame').text(data);
+      });
+
+  div#currentGame
