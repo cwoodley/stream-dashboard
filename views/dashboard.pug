@@ -1,21 +1,116 @@
 extends layout
 
 block content
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css")
+  link(rel="stylesheet", href="/vendor/jquery.timepicker.css")
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js')
+  script(src='/vendor/jquery.timepicker.min.js')
+  script(src='/vendor/jquery.datepair.min.js')
+  script(src="/vendor/moment.min.js")
+  script(src="/vendor/countdown.min.js")
+  script(src="/vendor/moment-countdown.min.js")
   script.
     $(document).ready(function(){
+
+
       $('form').submit(function(){
         console.log('form submitted');
+      });
+
+      // initialize input widgets first
+      $('#timers .time').timepicker({
+          'timeFormat': 'g:ia'
+      });
+
+      $('#timers .date').datepicker({
+          'format': 'yyyy-mm-dd',
+          'autoclose': true
+      });
+
+      function formatEndingTime(){
+        //- var timeStart = moment().format('YYYY-MM-DD H:mm');
+
+        var timeEnd = moment($('#timeEnd').val(),'HH:mm:a').format('HH:mm');
+        var dateEnd = $('#dateEnd').val();
+
+        var endTimeDate = dateEnd + " " + timeEnd;
+
+        //- var timeObject = moment(timeStart).countdown(endTimeDate,countdown.HOURS|countdown.MINUTES, NaN, 2);
+
+        $('#timerFinish').val(endTimeDate)
+        console.log('end time: ' + endTimeDate)
+
+      }
+
+
+      // initialize datepair
+      //- $('#timers').datepair();
+
+      $('#setTime').on('click', function(){
+        formatEndingTime()
+        //- setInterval(function() {startTheClock()}, 60000);
       });
     });
 
 
   h1= title
 
+
+
   form(action="/dashboard", method="post")
 
-    div.input-group
-      label Current Game
-      input(type="text", class="form-control", placeholder="Current Game", name="currentGame")
+    div.panel.panel-default
+      div.panel-heading Game Details
+      div.panel-body
+        div.row
+          div.col-lg-6
+            div.input-group
+              label Current Game
+              input(type="text", class="form-control", placeholder="Current Game", name="currentGame", value=currentGame)
+          div.col-lg-6
+            div.input-group
+              label Next Game
+              input(type="text", class="form-control", placeholder="Next Game", name="nextGame", value=nextGame)
+
+    div.panel.panel-default
+      div.panel-heading Timer
+      div.panel-body#timers
+        div.row
+          div.col-lg-6
+            div.input-group
+              label End Time
+              input(type="text", class="form-control time end", placeholder="", id="timeEnd", name="timeEnd", value=timeEnd)
+          div.col-lg-6
+            div.input-group
+              label End Date
+              input(type="text", class="form-control date end", placeholder="", id="dateEnd", name="dateEnd", value=dateEnd)
+        div.row
+          div.col-lg-6
+            div.input-group
+              button(type="button", class="btn btn-default", id="setTime") Set
+              input(type="hidden",id="timerFinish", name="timerFinish" value=timerFinish)
+
+    div.panel.panel-default
+      div.panel-heading Donation info
+      div.panel-body
+        div.row
+          div.col-lg-6
+            div.input-group
+              label Top Donator
+              input(type="text", class="form-control", placeholder="Name", name="topDonator", value=topDonator)
+          div.col-lg-6
+            div.input-group
+              label Top Donation Amount
+              input(type="text", class="form-control", placeholder="100", name="topDonationAmount", value=topDonationAmount)
+        div.row
+          div.col-lg-6
+            div.input-group
+              label Donations Received (total)
+              input(type="text", class="form-control", placeholder="100", name="donationsReceived", value=donationsReceived)
+          div.col-lg-6
+            div.input-group
+              label Donations Goal
+              input(type="text", class="form-control", placeholder="100", name="donationsGoal", value=donationsGoal)
 
     button(type='submit', class="btn btn-default", id="save-currentgame")
       span Save

@@ -1,11 +1,37 @@
 extends layout
 
 block content
-
+  script(src="/vendor/moment.min.js")
+  script(src="/vendor/countdown.min.js")
+  script(src="/vendor/moment-countdown.min.js")
   script.
-      var socket = io('//localhost:3000');
-      socket.on('currentGame', function (data) {
-        $('div#currentGame').text(data);
-      });
+    function startTheClock(end){
+      var now = moment().format('YYYY-MM-DD H:mm');
+      var timeObject = moment(now).countdown(end,countdown.HOURS|countdown.MINUTES, NaN, 2);
 
-  div#currentGame
+      $('#timer .hours').text(timeObject.hours + 'h');
+      $('#timer .minutes').text(timeObject.minutes + 'm');
+
+    }
+
+    var socket = io('//localhost:3000');
+    socket.on('currentGame', function (data) {
+      $('div#currentGame span').text(data);
+    });
+    socket.on('nextGame', function (data) {
+      $('div#nextGame span').text(data);
+    });
+    socket.on('timerFinish', function (data) {
+      startTheClock(data);
+      setInterval(function() {startTheClock(data)}, 60000);
+    });
+
+  div#currentGame current game is:
+    span
+
+  div#nextGame next game is:
+    span
+
+  div#timer time remaining
+    span.hours
+    span.minutes
