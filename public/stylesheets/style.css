@@ -1,11 +1,16 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-
 }
 
 .canvas {
+  color: #fff;
   height: 720px;
   overflow: hidden;
   width: 1280px;
   position: relative;
+}
+
+#currentGame {
+  position: absolute;
+  right: 0;
 }

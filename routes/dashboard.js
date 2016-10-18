@@ -3,19 +3,16 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
   res.render(
-    'dashboard',
-    {
-    }
+    'dashboard',{}
   );
 });
 
 router.post('/', function(req, res, next) {
-  console.log(req.body);
   res.io.emit("currentGame", req.body.currentGame);
   res.io.emit("nextGame", req.body.nextGame);
   res.io.emit("timerFinish", req.body.timerFinish)
+  res.io.emit("tickerItems", req.body.tickerItem)
 
   res.render('dashboard',{
     title : 'Dashboard',
