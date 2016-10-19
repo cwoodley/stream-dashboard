@@ -1,0 +1,9 @@
+{
+  "ignore": [
+    "./src/*",
+    "./public/*"
+  ],
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

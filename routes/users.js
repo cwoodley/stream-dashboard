@@ -3,8 +3,9 @@ var router = express.Router();
 
 /* GET users listing. */
 router.post('/', function(req, res, next) {
-  // console.log(req.body)
+  console.log(req.body);
   res.io.emit("socketToMe", req.body.currentGame);
+  res.end();
 });
 
 module.exports = router;

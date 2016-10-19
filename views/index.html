@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.0/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/vendor/moment.min.js"></script>
+    <script src="/vendor/countdown.min.js"></script>
+    <script src="/vendor/moment-countdown.min.js"></script>
+    <script src="/javascripts/index/timer.js"></script>
+    <script>
+      socket.on('currentGame', function (data) {
+        $('div#currentGame span').text(data);
+      });
+      socket.on('nextGame', function (data) {
+        $('div#nextGame span').text(data);
+      });
+    </script>
+  </head>
+  <body>
+    <div class="canvas">
+      <div id="currentGame">current game is:<span></span></div>
+      <div id="nextGame">next game is:<span></span></div>
+      <div id="timer">time remaining<span class="hours"></span><span class="minutes"></span></div>
+    </div>
+  </body>
+</html>

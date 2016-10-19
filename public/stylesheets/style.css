@@ -3,7 +3,7 @@ body {
 }
 
 .canvas {
-  color: #fff;
+  color: #000;
   height: 720px;
   overflow: hidden;
   width: 1280px;
