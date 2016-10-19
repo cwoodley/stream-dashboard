@@ -62,15 +62,26 @@
 	
 	var Panel = __webpack_require__(/*! ./components/panels/Panel */ 173);
 	var GameDetails = __webpack_require__(/*! ./components/panels/GameDetails */ 174);
+	var DonationInfo = __webpack_require__(/*! ./components/panels/DonationInfo */ 175);
 	
 	var Dashboard = React.createClass({
 	  displayName: 'Dashboard',
 	
 	  render: function () {
 	    return React.createElement(
-	      Panel,
-	      { title: 'Game Details' },
-	      React.createElement(GameDetails, null)
+	      'div',
+	      null,
+	      React.createElement(
+	        Panel,
+	        { title: 'Game Details' },
+	        React.createElement(GameDetails, null)
+	      ),
+	      React.createElement(
+	        Panel,
+	        { title: 'Donation Details' },
+	        React.createElement(DonationInfo, null)
+	      ),
+	      React.createElement(Panel, { title: 'Timer' })
 	    );
 	  }
 	});
@@ -21999,7 +22010,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 2);
-	var ReactDOM = __webpack_require__(/*! react-dom */ 35);
 	
 	var GameDetails = React.createClass({
 	  displayName: 'GameDetails',
@@ -22083,6 +22093,137 @@
 	});
 	
 	module.exports = GameDetails;
+
+/***/ },
+/* 175 */
+/*!***********************************************!*\
+  !*** ./src/components/panels/DonationInfo.js ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(/*! react */ 2);
+	
+	var DonationInfo = React.createClass({
+	  displayName: 'DonationInfo',
+	
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	
+	    var data = [{
+	      emitter: 'donatorTop',
+	      data: this.refs.donatorTop.value
+	    }, {
+	      emitter: 'donatorTopAmount',
+	      data: this.refs.donatorTopAmount.value
+	    }, {
+	      emitter: 'donationsRec',
+	      data: this.refs.donationsRec.value
+	    }, {
+	      emitter: 'donationsGoal',
+	      data: this.refs.donationsGoal.value
+	    }];
+	
+	    fetch('http://localhost:3000/update', {
+	      method: 'POST',
+	      headers: {
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json'
+	      },
+	      body: JSON.stringify(data)
+	    }).then(function (response) {
+	      console.log(response.status);
+	    }).catch(function (err) {
+	      console.log(err);
+	    });
+	  },
+	
+	  render: function () {
+	    return React.createElement(
+	      'form',
+	      { onSubmit: this.handleSubmit },
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        React.createElement(
+	          'div',
+	          { className: 'col-lg-6' },
+	          React.createElement(
+	            'div',
+	            { className: 'input-group' },
+	            React.createElement(
+	              'label',
+	              null,
+	              'Top Donator'
+	            ),
+	            React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Name', ref: 'donatorTop' })
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'col-lg-6' },
+	          React.createElement(
+	            'div',
+	            { className: 'input-group' },
+	            React.createElement(
+	              'label',
+	              null,
+	              'Top Donation Amount'
+	            ),
+	            React.createElement('input', { type: 'text', className: 'form-control', placeholder: '100', ref: 'donatorTopAmount' })
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        React.createElement(
+	          'div',
+	          { className: 'col-lg-6' },
+	          React.createElement(
+	            'div',
+	            { className: 'input-group' },
+	            React.createElement(
+	              'label',
+	              null,
+	              'Donations Received (total)'
+	            ),
+	            React.createElement('input', { type: 'text', className: 'form-control', placeholder: '100', ref: 'donationsRec' })
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'col-lg-6' },
+	          React.createElement(
+	            'div',
+	            { className: 'input-group' },
+	            React.createElement(
+	              'label',
+	              null,
+	              'Donation Goal'
+	            ),
+	            React.createElement('input', { type: 'text', className: 'form-control', placeholder: '1000', ref: 'donationsGoal' })
+	          )
+	        )
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        React.createElement(
+	          'div',
+	          { className: 'col-lg-6' },
+	          React.createElement(
+	            'button',
+	            { type: 'submit', className: 'btn btn-default' },
+	            ' Save '
+	          )
+	        )
+	      )
+	    );
+	  }
+	
+	});
+	
+	module.exports = DonationInfo;
 
 /***/ }
 /******/ ]);
