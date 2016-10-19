@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/', function(req, res, next) {
-  // res.io.emit("currentGame", req.body.currentGame);
-  // res.io.emit("nextGame", req.body.nextGame);
-  // res.io.emit("timerFinish", req.body.timerFinish)
-  // res.io.emit("tickerItems", req.body.tickerItem)
 
-  console.log(req.body);
+  var emitters = req.body;
+
+  for(var i=0; i < emitters.length; i++) {
+    console.log('firing: ' + emitters[i].emitter);
+    res.io.emit(emitters[i].emitter, emitters[i].data);
+  }
 
   res.end();
 });

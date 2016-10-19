@@ -21968,56 +21968,22 @@
 	// var ReactDOM = require('react-dom');
 	
 	var Panel = React.createClass({
-	  displayName: 'Panel',
+	  displayName: "Panel",
 	
-	  handleSubmit: function (e) {
-	    var self;
-	    self = this;
-	
-	    e.preventDefault();
-	
-	    fetch('/update', {
-	      method: 'post',
-	      body: {
-	        hello: 'hi'
-	      }
-	    }).then(function (response) {
-	      console.log(response.status);
-	    }).catch(function (err) {
-	      console.log(err);
-	    });
-	  },
 	
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      { className: 'panel panel-default' },
+	      "div",
+	      { className: "panel panel-default" },
 	      React.createElement(
-	        'div',
-	        { className: 'panel-heading' },
+	        "div",
+	        { className: "panel-heading" },
 	        this.props.title
 	      ),
 	      React.createElement(
-	        'div',
-	        { className: 'panel-body' },
-	        React.createElement(
-	          'form',
-	          { onSubmit: this.handleSubmit, id: 'comment-form' },
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement('input', { type: 'text', ref: 'inputName', name: 'inputName' })
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'row' },
-	            React.createElement(
-	              'button',
-	              { type: 'submit', className: 'btn btn-default' },
-	              ' Save '
-	            )
-	          )
-	        )
+	        "div",
+	        { className: "panel-body" },
+	        this.props.children
 	      )
 	    );
 	  }
@@ -22038,36 +22004,78 @@
 	var GameDetails = React.createClass({
 	  displayName: 'GameDetails',
 	
+	  handleSubmit: function (e) {
+	    e.preventDefault();
+	
+	    var data = [{
+	      emitter: 'currentGame',
+	      data: this.refs.currentGame.value
+	    }, {
+	      emitter: 'nextGame',
+	      data: this.refs.nextGame.value
+	    }];
+	
+	    fetch('http://localhost:3000/update', {
+	      method: 'POST',
+	      headers: {
+	        'Accept': 'application/json',
+	        'Content-Type': 'application/json'
+	      },
+	      body: JSON.stringify(data)
+	    }).then(function (response) {
+	      console.log(response.status);
+	    }).catch(function (err) {
+	      console.log(err);
+	    });
+	  },
+	
 	  render: function () {
 	    return React.createElement(
-	      'div',
-	      { className: 'row' },
+	      'form',
+	      { onSubmit: this.handleSubmit, id: 'comment-form' },
 	      React.createElement(
 	        'div',
-	        { className: 'col-lg-6' },
+	        { className: 'row' },
 	        React.createElement(
 	          'div',
-	          { className: 'input-group' },
+	          { className: 'col-lg-6' },
 	          React.createElement(
-	            'label',
-	            null,
-	            'Current Game'
-	          ),
-	          React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Current Game', name: 'currentGame' })
+	            'div',
+	            { className: 'input-group' },
+	            React.createElement(
+	              'label',
+	              null,
+	              'Current Game'
+	            ),
+	            React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Current Game', ref: 'currentGame' })
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'col-lg-6' },
+	          React.createElement(
+	            'div',
+	            { className: 'input-group' },
+	            React.createElement(
+	              'label',
+	              null,
+	              'Next Game'
+	            ),
+	            React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Next Game', ref: 'nextGame' })
+	          )
 	        )
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'col-lg-6' },
+	        { className: 'row' },
 	        React.createElement(
 	          'div',
-	          { className: 'input-group' },
+	          { className: 'col-lg-6' },
 	          React.createElement(
-	            'label',
-	            null,
-	            'Next Game'
-	          ),
-	          React.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Next Game', name: 'nextGame' })
+	            'button',
+	            { type: 'submit', className: 'btn btn-default' },
+	            ' Save '
+	          )
 	        )
 	      )
 	    );
