@@ -7,6 +7,7 @@ var DonationInfo = require('./components/panels/DonationInfo');
 
 
 var Dashboard = React.createClass({
+
   render: function() {
     return (
       <div>

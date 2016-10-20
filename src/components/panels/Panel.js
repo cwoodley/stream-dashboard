@@ -1,7 +1,7 @@
 var React = require('react');
-// var ReactDOM = require('react-dom');
 
 var Panel = React.createClass({
+
 
   render: function() {
     return (
