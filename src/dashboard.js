@@ -2,8 +2,10 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 
 var Panel = require('./components/panels/Panel');
-var GameDetails = require('./components/panels/GameDetails');
+var SubmissionForm = require('./components/SubmissionForm');
 var DonationInfo = require('./components/panels/DonationInfo');
+
+var InputText = require('./components/InputText.js');
 
 
 var Dashboard = React.createClass({
@@ -12,7 +14,10 @@ var Dashboard = React.createClass({
     return (
       <div>
         <Panel title="Game Details">
-          <GameDetails />
+          <SubmissionForm>
+            <InputText label="Current Game" placeholder="Current Game" name="currentGame" />
+            <InputText label="Next Game" placeholder="Next Game" name="nextGame" />
+          </SubmissionForm>
         </Panel>
         <Panel title="Donation Details">
           <DonationInfo />

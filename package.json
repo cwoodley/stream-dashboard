@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "webpack --progress --colors --watch -d",
-    "server": "nodemon ./bin/www --config nodemon.json",
+    "watch": "webpack --progress --colors --watch -d",
+    "start": "nodemon ./bin/www --config nodemon.json",
     "production": "webpack -p"
   },
   "dependencies": {
