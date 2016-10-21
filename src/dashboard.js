@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 
 var Panel = require('./components/panels/Panel');
 var SubmissionForm = require('./components/SubmissionForm');
-var DonationInfo = require('./components/panels/DonationInfo');
+var Timer = require('./components/panels/Timer');
 
 var InputText = require('./components/InputText.js');
 
@@ -25,6 +25,9 @@ var Dashboard = React.createClass({
             <InputText label="Donation Goal" placeholder="41110" name="donationsGoal" />
             <InputText label="Donations Received (amount)" placeholder="200" name="donationsRec" />
           </SubmissionForm>
+        </Panel>
+        <Panel title="Timer">
+          <Timer />
         </Panel>
       </div>
     )

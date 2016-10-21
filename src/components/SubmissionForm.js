@@ -1,7 +1,6 @@
 var React = require('react');
 var FormData = require('react-form-data');
 
-
 var SubmissionForm = React.createClass({
   mixins: [ FormData ],
 
@@ -27,7 +26,6 @@ var SubmissionForm = React.createClass({
     var that = this;
 
     var childrenWithProps = React.Children.map(this.props.children, function(child, i) {
-      console.log(i);
       return React.cloneElement(child, { handleChange: that.updateFormData })
     });
 
