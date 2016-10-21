@@ -5,7 +5,7 @@ router.post('/', function(req, res, next) {
   var emitters = req.body;
 
   for (var i in emitters) {
-    if (emitters.hasOwnProperty(key)) {
+    if (emitters.hasOwnProperty(i)) {
       console.log('setting ' + i + " => " + emitters[i]);
       res.io.emit(i, emitters[i])
     }

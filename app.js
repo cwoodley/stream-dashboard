@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var dashboard = require('./routes/dashboard');
 var update = require('./routes/update');
 
@@ -37,7 +36,6 @@ app.use(function(req, res, next){
 
 app.use('/', routes);
 app.use('/update', update);
-app.use('/users', users);
 app.use('/dashboard', dashboard);
 // app.use('/dashboard', express.static(__dirname + '/views/dashboard.html'));
 
