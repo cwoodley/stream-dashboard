@@ -4,15 +4,7 @@ var FormData = require('react-form-data');
 
 var SubmissionForm = React.createClass({
   mixins: [ FormData ],
-  // handleInputChange: function(e){
-  //   console.log(e.target.value)
-  //   this.setState({
-  //     emitter: {
-  //       emitterName: e.target.name,
-  //       content: e.target.value
-  //     }
-  //   })
-  // },
+
   handleSubmit: function(e) {
     e.preventDefault();
 
@@ -36,14 +28,14 @@ var SubmissionForm = React.createClass({
 
     var childrenWithProps = React.Children.map(this.props.children, function(child, i) {
       console.log(i);
-      return (
-        <div className="row">{React.cloneElement(child, { handleChange: that.updateFormData })}</div>
-      );
+      return React.cloneElement(child, { handleChange: that.updateFormData })
     });
 
     return (
       <form onSubmit={this.handleSubmit}>
-        {childrenWithProps}
+        <div className="row">
+          {childrenWithProps}
+        </div>
 
         <div className="row">
           <div className="col-lg-6">
