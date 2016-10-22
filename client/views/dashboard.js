@@ -1,13 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var Panel = require('./components/panels/Panel');
-var SubmissionForm = require('./components/SubmissionForm');
-var Timer = require('./components/panels/Timer');
-var Ticker = require('./components/panels/Ticker');
+var Panel = require('../components/panels/Panel');
+var SubmissionForm = require('../components/SubmissionForm');
+var Timer = require('../components/panels/Timer');
+var Ticker = require('../components/panels/Ticker');
 
 
-var InputText = require('./components/InputText.js');
+var InputText = require('../components/InputText.js');
 
 var Dashboard = React.createClass({
 
