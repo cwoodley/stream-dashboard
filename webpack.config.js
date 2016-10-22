@@ -1,10 +1,10 @@
 
 module.exports = {
   entry: [
-    './client/views/dashboard.js'
+    './client/dashboard/dashboard.js'
   ],
   output: {
-    path: __dirname + '/server/public/build',
+    path: __dirname + '/client/dashboard/build',
     filename: "dashboard_bundle.js"
   },
   module: {

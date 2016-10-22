@@ -1,13 +1,12 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var Panel = require('../components/panels/Panel');
-var SubmissionForm = require('../components/SubmissionForm');
-var Timer = require('../components/panels/Timer');
-var Ticker = require('../components/panels/Ticker');
+var Panel = require('./components/panels/Panel');
+var SubmissionForm = require('./components/SubmissionForm');
+var InputText = require('./components/InputText.js');
 
-
-var InputText = require('../components/InputText.js');
+var Timer = require('./components/panels/Timer');
+var Ticker = require('./components/panels/Ticker');
 
 var Dashboard = React.createClass({
 
@@ -29,7 +28,7 @@ var Dashboard = React.createClass({
             <InputText label="Top Donation Amount" placeholder="100" name="donatorTopAmount" />
             <InputText label="Donation Goal" placeholder="41110" name="donationsGoal" />
             <InputText label="Donations Received (amount)" placeholder="200" name="donationsRec" />
-            <InputText label="Campaign Page" placeholder="http://www.google.com" name="campaignPage" />
+            <InputText label="Campaign Page" placeholder="http://bit.ly/2eRLabX" name="campaignPage" />
           </SubmissionForm>
         </Panel>
         <Panel title="Timer">

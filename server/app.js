@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var dashboard = require('./routes/dashboard');
 var update = require('./routes/update');
+var overlay = require('./routes/overlay');
 
 var app = express();
 var server = require('http').Server(app);
@@ -36,7 +37,12 @@ app.use(function(req, res, next){
 
 app.use('/', routes);
 app.use('/update', update);
+app.use('/overlay', overlay);
 app.use('/dashboard', dashboard);
+app.use('/dashboard/build', express.static(path.join(__dirname, '../client/dashboard/build')));
+app.use('/themes', express.static(path.join(__dirname, '../client/overlay/themes')));
+
+
 // app.use('/dashboard', express.static(__dirname + '/views/dashboard.html'));
 
 // catch 404 and forward to error handler
