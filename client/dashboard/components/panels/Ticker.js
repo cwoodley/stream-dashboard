@@ -6,7 +6,7 @@ var TickerItem = React.createClass({
   render: function() {
     return (
       <div className="input-group">
-        <input type="text" className="form-control" data-idNum={this.props.id} placeholder="Ticker Item" name={'tickerItem' + this.props.id} onBlur={this.props.handleChange} />
+        <input type="text" className="form-control" data-idNum={this.props.id} placeholder="Ticker Item" name={'tickerItem' + this.props.id} onChange={this.props.handleChange} />
         <span className="input-group-btn">
           <button className="btn btn-default" type="button" onClick={this.props.handleDelete}>Remove</button>
         </span>

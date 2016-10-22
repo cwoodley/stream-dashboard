@@ -23,6 +23,7 @@
     "moment-countdown": "^0.0.3",
     "jquery": "^2.2.4",
     "bootstrap": "^3.3.7",
-    "countdownjs": "^2.6.0"
+    "countdownjs": "^2.6.0",
+    "slick-carousel": "^1.6.0"
   }
 }

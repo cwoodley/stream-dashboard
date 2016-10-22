@@ -4,51 +4,76 @@
     <title>{{title}}</title>
 
     <script src="/socket.io/socket.io.js"></script>
-    <link rel="stylesheet" href="/stylesheets/style.css" media="screen" title="no title">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 
     <link rel="stylesheet" href="/themes/cwoodley/stylesheets/build/style.css">
     <link rel="stylesheet" href="/themes/cwoodley/fonts/bignoodletoo/stylesheet.css">
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bower_components/moment/min/moment.min.js"></script>
+
+    <!-- Slick -->
+    <script src="/bower_components/slick-carousel/slick/slick.min.js"></script>
+    <link rel="stylesheet" href="/bower_components/slick-carousel/slick/slick.css">
+    <link rel="stylesheet" href="/bower_components/slick-carousel/slick/slick-theme.css">
+
+    <!-- Timer -->
     <script src="/themes/cwoodley/vendor/countdown.min.js"></script>
     <script src="/bower_components/moment-countdown/dist/moment-countdown.min.js"></script>
     <script src="/themes/cwoodley/javascripts/timer.js"></script>
     <script>
-
-      socket.on('campaignPage', function(data) {
-        $('#campaignPage .data').text(data);
-      });
-      socket.on('tickerItems', function (data) {
-        var list = $('#tickerItems');
-        list.html('');
-
-        $.each(data, function( index, value ) {
-          list.append('<li>' + value + '</li>');
+      $(document).ready(function(){
+        $('#tickerItems').slick({
+          arrows: false,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 1000,
         });
-      });
+
+        socket.on('campaignPage', function(data) {
+          $('#campaignPage .data').text(data);
+        });
+
+        socket.on('tickerItems', function (data) {
+          var list = $('#tickerItems');
+          list.slick('unslick');
+          list.html('');
+
+          $.each(data, function( index, value ) {
+            list.append('<li>' + value + '</li>');
+          });
+
+          setTimeout(function(){
+            $('#tickerItems').slick({
+              arrows: false,
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              autoplay: true,
+              autoplaySpeed: 2000,
+            });
+          },400);
+
+        });
+      })
     </script>
   </head>
   <body>
     <div class="canvas">
 
-      <div id="currentGame">current game is:<span></span></div>
-      <div id="nextGame">next game is:<span></span></div>
-      <div id="ticker">
-        <ul>
-
-        </ul>
-      </div>
       <div id="timer">time remaining<span class="hours"></span><span class="minutes"></span></div>
 
       <div id="footer">
         <div id="campaignPage">
           <div class="title">Donate:</div>
-          <div class="data"></div>
+          <div class="data">http://bit.ly/2eRLabX</div>
         </div>
 
         <div id="ticker">
-          <ul>tickerItems</ul>
+          <ul id="tickerItems">
+            <li>welp</li>
+            <li>hi</li>
+          </ul>
         </div>
       </div>
     </div>
