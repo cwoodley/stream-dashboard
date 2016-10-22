@@ -4,6 +4,8 @@ var ReactDOM = require('react-dom');
 var Panel = require('./components/panels/Panel');
 var SubmissionForm = require('./components/SubmissionForm');
 var Timer = require('./components/panels/Timer');
+var Ticker = require('./components/panels/Ticker');
+
 
 var InputText = require('./components/InputText.js');
 
@@ -17,6 +19,9 @@ var Dashboard = React.createClass({
               <InputText label="Current Game" placeholder="Current Game" name="currentGame" />
               <InputText label="Next Game" placeholder="Next Game" name="nextGame" />
           </SubmissionForm>
+        </Panel>
+        <Panel title="Ticker">
+          <Ticker />
         </Panel>
         <Panel title="Donation Details">
           <SubmissionForm>

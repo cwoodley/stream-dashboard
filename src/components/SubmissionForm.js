@@ -8,6 +8,7 @@ var SubmissionForm = React.createClass({
     e.preventDefault();
 
     formData = this.formData;
+    console.log(formData)
 
     fetch('http://localhost:3000/update',{
       method: 'POST',
