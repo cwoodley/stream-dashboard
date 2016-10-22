@@ -4,9 +4,9 @@ body {
 
 .canvas {
   color: #000;
-  height: 720px;
+  height: 100vh;
   overflow: hidden;
-  width: 1280px;
+  width: 100%;
   position: relative;
 }
 

@@ -18,12 +18,25 @@
       socket.on('nextGame', function (data) {
         $('div#nextGame span').text(data);
       });
+      socket.on('tickerItems', function (data) {
+        var list = $('#ticker ul');
+        list.html('');
+
+        $.each(data, function( index, value ) {
+          list.append('<li>' + value + '</li>');
+        });
+      });
     </script>
   </head>
   <body>
     <div class="canvas">
       <div id="currentGame">current game is:<span></span></div>
       <div id="nextGame">next game is:<span></span></div>
+      <div id="ticker">
+        <ul>
+
+        </ul>
+      </div>
       <div id="timer">time remaining<span class="hours"></span><span class="minutes"></span></div>
     </div>
   </body>

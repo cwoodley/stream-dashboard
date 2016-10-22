@@ -50,8 +50,6 @@ var Ticker = React.createClass({
     e.preventDefault();
     formData = {tickerItems: this.state.data};
 
-    console.log(formData);
-
     fetch('http://localhost:3000/update',{
       method: 'POST',
       headers: {
