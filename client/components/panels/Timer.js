@@ -5,6 +5,13 @@ var moment = require('moment');
 require('react-datetime/css/react-datetime.css');
 
 var Timer = React.createClass({
+  getInitialState: function(){
+    return {
+      emit: {
+        endDateTime: moment().add(24, 'hours').format('YYYY-MM-DD HH:mm')
+      }
+    }
+  },
   handleInputChange: function(data) {
     var timedateFormatted = moment(data).format('YYYY-MM-DD HH:mm')
     this.setState({
@@ -40,7 +47,7 @@ var Timer = React.createClass({
           <div className="col-lg-6">
             <div className="input-group">
               <label>End Date & Time</label>
-              <DateTime onChange={this.handleInputChange} defaultValue={moment()} />
+              <DateTime onChange={this.handleInputChange} defaultValue={moment().add(24, 'hours')} />
             </div>
           </div>
         </div>
