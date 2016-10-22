@@ -6,8 +6,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="/stylesheets/style.css" media="screen" title="no title">
 
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/themes/cwoodley/stylesheets/style.css">
+    <link rel="stylesheet" href="/themes/cwoodley/stylesheets/build/style.css">
     <link rel="stylesheet" href="/themes/cwoodley/fonts/bignoodletoo/stylesheet.css">
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -21,7 +20,7 @@
         $('#campaignPage .data').text(data);
       });
       socket.on('tickerItems', function (data) {
-        var list = $('#ticker ul');
+        var list = $('#tickerItems');
         list.html('');
 
         $.each(data, function( index, value ) {
@@ -46,6 +45,10 @@
         <div id="campaignPage">
           <div class="title">Donate:</div>
           <div class="data"></div>
+        </div>
+
+        <div id="ticker">
+          <ul>tickerItems</ul>
         </div>
       </div>
     </div>

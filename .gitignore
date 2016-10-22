@@ -1,5 +1,6 @@
 bower_components/
-server/public/build/
+/build/
+.ds_store
 
 # Logs
 logs

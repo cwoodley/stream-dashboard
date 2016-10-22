@@ -1,4 +1,3 @@
-
 module.exports = {
   entry: [
     './client/dashboard/dashboard.js'
