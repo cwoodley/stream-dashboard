@@ -9,7 +9,7 @@ function startTheClock(end){
 
 }
 
-socket.on('timerFinish', function (data) {
+socket.on('endDateTime', function (data) {
   startTheClock(data);
   setInterval(function() {startTheClock(data)}, 60000);
 });

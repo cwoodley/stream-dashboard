@@ -26,59 +26,6 @@ block content
     form(action="/dashboard", method="post")
 
       div.panel.panel-default
-        div.panel-heading Game Details
-        div.panel-body
-          div.row
-            div.col-lg-6
-              div.input-group
-                label Current Game
-                input(type="text", class="form-control", placeholder="Current Game", name="currentGame", value=currentGame)
-            div.col-lg-6
-              div.input-group
-                label Next Game
-                input(type="text", class="form-control", placeholder="Next Game", name="nextGame", value=nextGame)
-
-      div.panel.panel-default
-        div.panel-heading Timer
-        div.panel-body#timers
-          div.row
-            div.col-lg-6
-              div.input-group
-                label End Time
-                input(type="text", class="form-control time end", placeholder="", id="timeEnd", name="timeEnd", value=timeEnd)
-            div.col-lg-6
-              div.input-group
-                label End Date
-                input(type="text", class="form-control date end", placeholder="", id="dateEnd", name="dateEnd", value=dateEnd)
-          div.row
-            div.col-lg-6
-              div.input-group
-                button(type="button", class="btn btn-default", id="setTime") Set
-                input(type="hidden",id="timerFinish", name="timerFinish" value=timerFinish)
-
-      div.panel.panel-default
-        div.panel-heading Donation info
-        div.panel-body
-          div.row
-            div.col-lg-6
-              div.input-group
-                label Top Donator
-                input(type="text", class="form-control", placeholder="Name", name="topDonator", value=topDonator)
-            div.col-lg-6
-              div.input-group
-                label Top Donation Amount
-                input(type="text", class="form-control", placeholder="100", name="topDonationAmount", value=topDonationAmount)
-          div.row
-            div.col-lg-6
-              div.input-group
-                label Donations Received (total)
-                input(type="text", class="form-control", placeholder="100", name="donationsReceived", value=donationsReceived)
-            div.col-lg-6
-              div.input-group
-                label Donations Goal
-                input(type="text", class="form-control", placeholder="100", name="donationsGoal", value=donationsGoal)
-
-      div.panel.panel-default
         div.panel-heading Ticker Items
         div.panel-body
           div.row

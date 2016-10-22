@@ -1,14 +1,24 @@
 var React = require('react');
-var FormData = require('react-form-data');
+var DateTime = require('react-datetime');
+var moment = require('moment');
 
-var SubmissionForm = React.createClass({
-  mixins: [ FormData ],
+require('react-datetime/css/react-datetime.css');
 
+var Timer = React.createClass({
+  handleInputChange: function(data) {
+    var timedateFormatted = moment(data).format('YYYY-MM-DD HH:mm')
+    this.setState({
+      emit: {
+        endDateTime: timedateFormatted
+      }
+    })
+  },
   handleSubmit: function(e) {
     e.preventDefault();
 
-    formData = this.formData;
-    console.log(formData)
+    formData = this.state.emit;
+
+    console.log(formData);
 
     fetch('http://localhost:3000/update',{
       method: 'POST',
@@ -23,19 +33,17 @@ var SubmissionForm = React.createClass({
       console.log(err)
     });
   },
-  render: function() {
-    var that = this;
-
-    var childrenWithProps = React.Children.map(this.props.children, function(child, i) {
-      return React.cloneElement(child, { handleChange: that.updateFormData })
-    });
-
+  render: function(){
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="row">
-          {childrenWithProps}
+          <div className="col-lg-6">
+            <div className="input-group">
+              <label>End Date & Time</label>
+              <DateTime onChange={this.handleInputChange} defaultValue={moment()} />
+            </div>
+          </div>
         </div>
-
         <div className="row">
           <div className="col-lg-6">
             <button type="submit" className="btn btn-default"> Save </button>
@@ -46,4 +54,4 @@ var SubmissionForm = React.createClass({
   }
 });
 
-module.exports = SubmissionForm;
+module.exports = Timer;
