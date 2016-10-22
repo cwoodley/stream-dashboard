@@ -10,7 +10,17 @@ body {
   position: relative;
 }
 
-#currentGame {
+.title {
+  font-family: 'overwatch', sans-serif;;
+}
+
+#footer {
   position: absolute;
-  right: 0;
+  bottom: 0;
+}
+
+#campaignPage {
+  background: red;
+  color: #fff;
+  
 }

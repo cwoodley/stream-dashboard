@@ -29,6 +29,7 @@ var Dashboard = React.createClass({
             <InputText label="Top Donation Amount" placeholder="100" name="donatorTopAmount" />
             <InputText label="Donation Goal" placeholder="41110" name="donationsGoal" />
             <InputText label="Donations Received (amount)" placeholder="200" name="donationsRec" />
+            <InputText label="Campaign Page" placeholder="http://www.google.com" name="campaignPage" />
           </SubmissionForm>
         </Panel>
         <Panel title="Timer">
