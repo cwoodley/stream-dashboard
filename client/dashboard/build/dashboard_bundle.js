@@ -38496,7 +38496,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(/*! react */ 2);
-	var FormData = __webpack_require__(/*! react-form-data */ 175);
 	var update = __webpack_require__(/*! react-addons-update */ 298);
 	
 	var TickerItem = React.createClass({
@@ -38506,7 +38505,7 @@
 	    return React.createElement(
 	      'div',
 	      { className: 'input-group' },
-	      React.createElement('input', { type: 'text', className: 'form-control', 'data-idNum': this.props.id, placeholder: 'Ticker Item', name: 'tickerItem' + this.props.id, onBlur: this.props.handleChange }),
+	      React.createElement('input', { type: 'text', className: 'form-control', 'data-idNum': this.props.idNum, placeholder: 'Ticker Item', name: 'tickerItem' + this.props.id, onChange: this.props.handleChange }),
 	      React.createElement(
 	        'span',
 	        { className: 'input-group-btn' },
@@ -38523,37 +38522,53 @@
 	var Ticker = React.createClass({
 	  displayName: 'Ticker',
 	
-	  mixins: [FormData],
 	  getInitialState: function () {
 	    return {
-	      items: [],
-	      data: []
+	      items: [{
+	        index: 0,
+	        value: ''
+	      }]
 	    };
 	  },
-	  handleInputChange: function (e) {
-	    var index = e.target.getAttribute('data-idNum');
-	    var data = this.state.data.concat();
-	    data.splice(index, 1);
-	    data.push(e.target.value);
-	    this.setState({ data: data });
+	  handleInputChange: function (event) {
+	    var index = event.target.getAttribute('key');
+	    var value = event.target.value;
+	    // var data = this.state.data.concat();
+	    // // data.splice(index, 1);
+	    // // data.apply(data, [index, 1]).concat()
+	    // data.push(
+	    //   [index, {index: e.target.value}]
+	    // );
+	    // this.setState({ data: data });
+	    // // console.log(e.target.value);
+	    // var data = this.state.data.concat();
+	    // console.log(data);
+	
+	    // this.setState({data: {[index]: event.target.value}});
+	    this.setState({
+	      items: update(this.state.items, { [index]: { value: { $set: [value] } } })
+	    });
 	  },
 	  addTickerItem: function (item) {
 	    var items = this.state.items.concat();
-	    items.push(item);
+	    var id = items.length + 1;
+	    var newItem = { index: id, value: '' };
+	    items.push(newItem);
 	    this.setState({ items: items });
 	  },
 	  removeTickerItem: function (item) {
-	    var data = this.state.data.concat();
-	    var index = data.indexOf(item);
-	    data.splice(item, 1);
-	    this.setState({ data: data });
-	
-	    var items = this.state.items.concat();
-	    items.splice(item, 1);
-	    this.setState({ items: items });
+	    // var data = this.state.data.concat();
+	    // var index = data.indexOf(item)
+	    // data.splice(item, 1);
+	    // this.setState({ data: data })
+	    //
+	    // var items = this.state.items.concat();
+	    // items.splice(item,1);
+	    // this.setState({ items: items });
 	  },
 	  handleSubmit: function (e) {
 	    e.preventDefault();
+	
 	    formData = { tickerItems: this.state.data };
 	
 	    fetch('http://localhost:3000/update', {
@@ -38572,7 +38587,7 @@
 	  render: function () {
 	    var items = this.state.items;
 	    var list = items.map((item, index) => {
-	      return React.createElement(TickerItem, { key: index, id: index, value: item.text, handleDelete: this.removeTickerItem.bind(this, index), handleChange: this.handleInputChange });
+	      return React.createElement(TickerItem, { key: index, value: item.value, handleDelete: this.removeTickerItem.bind(this, index), handleChange: this.handleInputChange });
 	    });
 	
 	    return React.createElement(
