@@ -1,5 +1,5 @@
 var React = require('react');
-var update = require('react-addons-update');
+var update = require('immutability-helper');
 
 var TickerItem = React.createClass({
   render: function() {
@@ -23,23 +23,13 @@ var Ticker = React.createClass({
   handleInputChange: function(event) {
     var index = event.target.getAttribute('id');
     var value = event.target.value;
-    // var data = this.state.data.concat();
-    // // data.splice(index, 1);
-    // // data.apply(data, [index, 1]).concat()
-    // data.push(
-    //   [index, {index: e.target.value}]
-    // );
-    // this.setState({ data: data });
-    // // console.log(e.target.value);
-    // var data = this.state.data.concat();
-    // console.log(data);
+    var data = this.state.items;
 
-    this.setState({
-      items: update(this.state.items[index].value, {$set: [value]})
-    })
-    //
-    // this.state.items[index].value = value;
-    // console.log(this.state.items[index].value);
+
+    var newData = update(data, {[index]: {$set: value}});
+
+    this.setState({items: newData})
+
 
   },
   addTickerItem: function(item) {
@@ -51,19 +41,15 @@ var Ticker = React.createClass({
 
   },
   removeTickerItem: function(item) {
-    // var data = this.state.data.concat();
-    // var index = data.indexOf(item)
-    // data.splice(item, 1);
-    // this.setState({ data: data })
-    //
-    // var items = this.state.items.concat();
-    // items.splice(item,1);
-    // this.setState({ items: items });
+    var items = this.state.items.concat();
+    items.splice(item,1);
+    this.setState({ items: items });
+
   },
   handleSubmit: function(e) {
     e.preventDefault();
 
-    formData = {tickerItems: this.state.data};
+    formData = {tickerItems: this.state.items};
 
     fetch('http://localhost:3000/update',{
       method: 'POST',
