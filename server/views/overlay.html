@@ -23,7 +23,19 @@
     <script src="/themes/cwoodley/javascripts/timer.js"></script>
     <script>
       $(document).ready(function(){
+        function setInitialData() {
+          $('#campaignPage .data').text(localStorage.getItem('campaignPage'));
+          $('#currentTime .data').text(moment().format('h:mm a'));
 
+          var tickerItems = JSON.parse(localStorage.getItem('tickerItems'));
+
+          var ticker = $('#tickerItems');
+          $.each(tickerItems, function( index, value ) {
+            ticker.append('<li>' + value + '</li>');
+          });
+        }
+
+        setInitialData();
 
         $('#tickerItems').slick({
           arrows: false,
@@ -35,10 +47,13 @@
 
         socket.on('campaignPage', function(data) {
           $('#campaignPage .data').text(data);
+          localStorage.setItem('campaignPage', data);
         });
 
         socket.on('tickerItems', function (data) {
           var list = $('#tickerItems');
+          localStorage.setItem('tickerItems', JSON.stringify(data));
+
           list.slick('unslick');
           list.html('');
 
@@ -87,8 +102,6 @@
 
         <div id="ticker">
           <ul id="tickerItems">
-            <li>welp</li>
-            <li>hi</li>
           </ul>
         </div>
       </div>
