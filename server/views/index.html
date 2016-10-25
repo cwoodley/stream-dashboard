@@ -1,50 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Overlay</title>
+    <title>Stream Dashboard</title>
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <link rel="stylesheet" href="/fonts/bignoodletoo/stylesheet.css">
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/bower_components/moment/min/moment.min.js"></script>
-    <script src="/vendor/countdown.min.js"></script>
-    <script src="/bower_components/moment-countdown/dist/moment-countdown.min.js"></script>
-    <script src="/javascripts/index/timer.js"></script>
-    <script>
-
-      socket.on('campaignPage', function(data) {
-        $('#campaignPage .data').text(data);
-      });
-      socket.on('tickerItems', function (data) {
-        var list = $('#ticker ul');
-        list.html('');
-
-        $.each(data, function( index, value ) {
-          list.append('<li>' + value + '</li>');
-        });
-      });
-    </script>
   </head>
   <body>
-    <div class="canvas">
-
-      <div id="currentGame">current game is:<span></span></div>
-      <div id="nextGame">next game is:<span></span></div>
-      <div id="ticker">
-        <ul>
-
-        </ul>
+    <div class="container">
+      <div class="page-header">
       </div>
-      <div id="timer">time remaining<span class="hours"></span><span class="minutes"></span></div>
-
-      <div id="footer">
-        <div id="campaignPage">
-          <div class="title">Donate:</div>
-          <div class="data"></div>
-        </div>
-      </div>
+      <p><a href="/dashboard">Dashboard</a></p>
+      <p><a href="/overlay">Overlay</a></p>
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 
   res.render(
-    'overlay',{
+    path.join(__dirname, '../../client/overlay/themes/cwoodley/overlay.html'),{
       title: 'Overlay'
     }
 
