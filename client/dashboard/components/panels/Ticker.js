@@ -5,7 +5,7 @@ var TickerItem = React.createClass({
   render: function() {
     return (
       <div className="input-group">
-        <input type="text" className="form-control" data-idNum={this.props.idNum} placeholder="Ticker Item" name={'tickerItem' + this.props.id} onChange={this.props.handleChange} />
+        <input type="text" className="form-control" id={this.props.idNum} placeholder="Ticker Item" name={'tickerItem' + this.props.id} onChange={this.props.handleChange} />
         <span className="input-group-btn">
           <button className="btn btn-default" type="button" onClick={this.props.handleDelete}>Remove</button>
         </span>
@@ -17,16 +17,11 @@ var TickerItem = React.createClass({
 var Ticker = React.createClass({
   getInitialState: function() {
     return {
-      items: [
-        {
-          index: 0,
-          value: ''
-        }
-      ]
+      items: [{value: ''}]
     }
   },
   handleInputChange: function(event) {
-    var index = event.target.getAttribute('key');
+    var index = event.target.getAttribute('id');
     var value = event.target.value;
     // var data = this.state.data.concat();
     // // data.splice(index, 1);
@@ -39,16 +34,18 @@ var Ticker = React.createClass({
     // var data = this.state.data.concat();
     // console.log(data);
 
-    // this.setState({data: {[index]: event.target.value}});
     this.setState({
-      items: update(this.state.items, {[index]: {value: {$set: [value]}}})
+      items: update(this.state.items[index].value, {$set: [value]})
     })
+    //
+    // this.state.items[index].value = value;
+    // console.log(this.state.items[index].value);
 
   },
   addTickerItem: function(item) {
     var items = this.state.items.concat();
     var id = items.length + 1;
-    var newItem = {index: id, value: ''}
+    var newItem = {value: ''}
     items.push(newItem);
     this.setState({ items: items, });
 
@@ -85,7 +82,7 @@ var Ticker = React.createClass({
     var items = this.state.items;
     var list = items.map((item, index) => {
       return (
-        <TickerItem key={index} value={item.value} handleDelete={this.removeTickerItem.bind(this, index)} handleChange={this.handleInputChange} />
+        <TickerItem key={index} idNum={index} handleDelete={this.removeTickerItem.bind(this, index)} handleChange={this.handleInputChange} />
       )
     });
 
