@@ -5,7 +5,7 @@ var Panel = require('./components/panels/Panel');
 var SubmissionForm = require('./components/SubmissionForm');
 var InputText = require('./components/InputText.js');
 
-var Timer = require('./components/panels/Timer');
+var CountDown = require('./components/panels/Timers/CountDown');
 var Ticker = require('./components/panels/Ticker');
 
 var Dashboard = React.createClass({
@@ -31,8 +31,8 @@ var Dashboard = React.createClass({
             <InputText label="Campaign Page" placeholder="" name="campaignPage" />
           </SubmissionForm>
         </Panel>
-        <Panel title="Timer">
-          <Timer />
+        <Panel title="Timers">
+          <CountDown />
         </Panel>
       </div>
     )
