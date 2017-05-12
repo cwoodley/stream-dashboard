@@ -1,6 +1,8 @@
 bower_components/
 build/
 .ds_store
+/client/overlay/themes/
+!/client/overlay/themes/default/
 
 # Logs
 logs
