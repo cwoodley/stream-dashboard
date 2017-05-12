@@ -5,12 +5,10 @@ var router = express.Router();
 /* GET overlay page. */
 router.get('/', function(req, res, next) {
 
-  var theme;
+  var theme = process.env.OVERLAY_THEME;
 
-  if (!process.env.OVERLAY_THEME) {
+  if (theme == '') {
     theme = "default"
-  } else {
-    theme = process.env.OVERLAY_THEME
   }
 
   res.render(
