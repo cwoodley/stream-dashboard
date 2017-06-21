@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 
   var theme = process.env.OVERLAY_THEME;
 
-  if (theme == '') {
+  if (!theme) {
     theme = "default"
   }
 
