@@ -1,9 +1,8 @@
 var React = require('react');
 
-var Panel = React.createClass({
+export class Panel extends React.Component {
 
-
-  render: function() {
+  render() {
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
@@ -15,6 +14,4 @@ var Panel = React.createClass({
       </div>
     )
   }
-});
-
-module.exports = Panel;
+}

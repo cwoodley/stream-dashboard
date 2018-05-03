@@ -8,9 +8,8 @@ var InputText = require('./components/InputText.js');
 var CountDown = require('./components/panels/Timers/CountDown');
 var Ticker = require('./components/panels/Ticker');
 
-var Dashboard = React.createClass({
-
-  render: function() {
+export class Dashboard extends React.Component {
+  render() {
     return (
       <div>
         <Panel title="Game Details">
@@ -37,7 +36,7 @@ var Dashboard = React.createClass({
       </div>
     )
   }
-});
+}
 
 ReactDOM.render(
   <Dashboard />,
