@@ -1,5 +1,5 @@
 {
-  "name": "gmw",
+  "name": "stream-dashboard",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,34 +10,38 @@
   "dependencies": {
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
-    "css-loader": "^0.25.0",
     "debug": "~2.2.0",
     "dotenv": "^4.0.0",
     "express": "~4.13.4",
     "express-handlebars": "^3.0.0",
     "hbs": "^4.0.1",
-    "immutability-helper": "^2.0.0",
     "moment": "^2.15.1",
     "moment-countdown": "0.0.3",
     "morgan": "~1.7.0",
-    "react": "^15.3.2",
-    "react-datetime": "^2.6.0",
-    "react-dom": "^15.3.2",
-    "react-form-data": "^0.2.3",
     "serve-favicon": "~2.3.0",
-    "socket.io": "^1.5.0",
-    "style-loader": "^0.13.1"
+    "socket.io": "^1.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
-    "babel-preset-react": "^6.16.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.16.0",
     "css-loader": "^0.25.0",
     "html-webpack-plugin": "^2.22.0",
+    "immutability-helper": "^2.0.0",
     "node-sass": "^3.10.1",
+    "react": "^15.3.2",
+    "react-datetime": "^2.6.0",
+    "react-dom": "^15.3.2",
+    "react-form-data": "^0.2.3",
     "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",    
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/cwoodley/stream-dashboard.git",
+  "author": "Cale Woodley <inbox@cale.io>",
+  "license": "MIT"
 }
