@@ -7,24 +7,15 @@
   </head>
   <body>
     <div class="container">
-      <form class="ui form">
+      <form class="ui form" method="POST" action="http://dev.com:3000/update">
         <h4 class="ui dividing header">Game Info</h4>
         <div class="field">
           <label>Current Game</label>
-          <input type="text" name="game-current" placeholder="Game">
+          <input type="text" name="currentGame" autocomplete="off" placeholder="Game">
         </div>
         <div class="field">
-          <label>Platform</label>
-          <input type="text" name="game-platform" placeholder="Platform">
-        </div>
-        <h4 class="ui dividing header">Timer</h4>
-        <div class="field">
-          <label for="">Time Start</label>
-          <input type="text" name="game-platform" placeholder="0930">
-        </div>
-        <div class="field">
-          <label>Duration (hours)</label>
-          <input type="number" name="timer-duration" placeholder="24">
+          <label>Next Game</label>
+          <input type="text" name="nextGame" autocomplete="off" placeholder="Game">
         </div>
         <button class="ui button" type="submit">Submit</button>
       </form>
