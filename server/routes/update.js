@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-router.post('/', function(req, res, next) {
-  var emitters = req.body;
-
-  console.log(req.body)
+router.get('/', function(req, res, next) {
+  var emitters = [
+    {text: "hi"}
+  ]
 
   for (var i in emitters) {
     if (emitters.hasOwnProperty(i)) {
-      // console.log('setting ' + i + " => " + emitters[i]);
-      res.io.emit(i, emitters[i])
+      console.log('sending ' + "text" + " => " + emitters[i].text);
+      res.io.emit("text", emitters[i])
     }
   }
 

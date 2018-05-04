@@ -37,6 +37,8 @@ app.use(function(req, res, next){
   next();
 });
 
+io.on('connect', (socket) => console.log("client connected:",socket.id))
+
 app.use('/', routes);
 app.use('/update', update);
 app.use('/overlay', overlay);
