@@ -6,6 +6,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var routes = require('./routes/index');
 var dashboard = require('./routes/dashboard');
@@ -14,6 +15,7 @@ var overlay = require('./routes/overlay');
 
 var app = express();
 var server = require('http').Server(app);
+
 var io = require('socket.io')(server);
 
 // view engine setup
@@ -31,6 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static( path.join(__dirname, '../bower_components')));
 
+app.use(cors({credentials: true, origin: 'http://dev.com:1234'}))
 
 app.use(function(req, res, next){
   res.io = io;
