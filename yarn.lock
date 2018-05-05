@@ -2272,6 +2272,10 @@ walk@2.3.9:
   dependencies:
     foreachasync "^3.0.0"
 
+webscaledb@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/webscaledb/-/webscaledb-0.1.6.tgz#435ecca25d1e3d25bc6deb40d4216cbbc939e191"
+
 whatwg-fetch@>=0.10.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
