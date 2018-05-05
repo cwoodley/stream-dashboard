@@ -1,4 +1,4 @@
-const express = require('express');
+import express from "express"
 const router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -26,6 +26,7 @@ router.post('/', function(req, res, next) {
    */
   emitters.map(emitter => {
     res.io.emit(emitter.label, emitter.data)
+    console.log("sending", emitter.label, emitter.data);
   })
   
   res.redirect('./dashboard');

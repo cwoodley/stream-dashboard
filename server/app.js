@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-var routes = require('./routes/index');
+var routes = require('./routes/index')
 var dashboard = require('./routes/dashboard');
 var update = require('./routes/update');
 var overlay = require('./routes/overlay');
