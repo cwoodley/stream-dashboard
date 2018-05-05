@@ -1,10 +1,7 @@
 import express from "express"
 const router = express.Router();
 
-router.get('/', function(req, res, next) {
-
-  // res.io.emit("currentGame", 'can you hear me?', 1, 2, 'abc')
-  
+router.get('/', function(req, res, next) {  
   res.end();
 });
 
