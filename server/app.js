@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',  express.static( path.join(__dirname, '../bower_components')));
 
-app.use(cors({credentials: true, origin: 'http://cale.localdev:1234'}))
+app.use(cors({credentials: true, origin: process.env.CORS_ORIGIN}))
 
 function retrieveData(store) {
   if (!store) {
