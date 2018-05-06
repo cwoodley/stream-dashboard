@@ -1,29 +1,30 @@
 require('dotenv').config()
 
-var express = require('express');
-var path = require('path');
-// var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors');
+import express from "express"
+import path from "path"
+import logger from "morgan"
+import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
+import cors from 'cors'
 
-var routes = require('./routes/index')
-var dashboard = require('./routes/dashboard');
-var update = require('./routes/update');
+import routes from "./routes/index"
+import dashboard from './routes/dashboard'
+import update from './routes/update'
 
-var app = express();
-var server = require('http').Server(app);
+import * as db from 'webscaledb'
 
-var io = require('socket.io')(server);
+const app = express();
+const server = require('http').Server(app);
+
+const io = require('socket.io')(server);
+
+const DB_NAME = path.join(process.cwd(), 'data.json')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,19 +35,42 @@ app.use('/bower_components',  express.static( path.join(__dirname, '../bower_com
 
 app.use(cors({credentials: true, origin: 'http://cale.localdev:1234'}))
 
+function retrieveData(store) {
+  if (!store) {
+    return
+  }
+
+  db.restore(store, () => {
+    sendData(db.get())
+  })
+}
+
+function sendData(data) {
+  const emitters = []
+
+  for (const i in data) {
+    if (data[i]) {
+      emitters.push({label: i, content: data[i]})
+    }
+  }
+
+  emitters.map(emitter => {
+    io.emit(emitter.label, emitter.content)
+  })
+}
+
 app.use(function(req, res, next){
   res.io = io;
   next();
 });
 
-io.on('connect', (socket) => console.log("client connected:",socket.id))
+io.on('connect', (socket) => {
+  retrieveData(DB_NAME)
+})
 
 app.use('/', routes);
 app.use('/update', update);
 app.use('/dashboard', dashboard);
-
-
-// app.use('/dashboard', express.static(__dirname + '/views/dashboard.html'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

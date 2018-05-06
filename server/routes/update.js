@@ -6,7 +6,7 @@ const router = express.Router();
 
 const DB_NAME = path.join(process.cwd(), 'data.json')
 
-function saveData(data) {
+const saveData = (data) => {
   db.backup(DB_NAME)
 }
 
@@ -21,9 +21,9 @@ router.post('/', function(req, res, next) {
   /** 
    * Converts form data into array of objects
    */
-  for (var i in formData) {
+  for (const i in formData) {
     if (formData[i]) {
-      emitters.push({label: i, data: formData[i]})
+      emitters.push({label: i, content: formData[i]})
     }
   }
 
@@ -31,12 +31,8 @@ router.post('/', function(req, res, next) {
    * Send data to client & webascaledb
    */
   emitters.map(emitter => {
-    res.io.emit(emitter.label, emitter.data)
-    
-    saveData(db.set(emitter.label, emitter.data))
-    console.log(emitter.label,emitter.data);
-
-    console.log("sending", emitter.label, emitter.data);
+    res.io.emit(emitter.label, emitter.content)
+    saveData(db.set(emitter.label, emitter.content))
   })
   
   res.redirect('./dashboard');
