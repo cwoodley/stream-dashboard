@@ -18,10 +18,29 @@
             <label>Next Game</label>
             <input type="text" name="nextGame" autocomplete="off" placeholder="Game">
           </div>
+          <h4 class="ui dividing header">Debug Flags</h4>
+          <div class="field">
+              <label>Enabled Flags</label>
+              <select multiple="" class="ui dropdown" name="debug">
+                <option value="">Please select</option>
+                <option value="styling">Styling</option>
+                <option value="connection">Connection</option>
+              </select>
+            </div>
+          </div>
           <button class="ui button" type="submit">Submit</button>
         </form>
       </div>
     </div>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.js"></script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.js"></script>
+    <script>
+      jQuery(document).ready(function(){
+        $('.ui.dropdown').dropdown();
+      });
+    </script>
   </body>
 </html>
