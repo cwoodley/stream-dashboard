@@ -6,7 +6,8 @@ const router = express.Router();
 
 const DB_NAME = path.join(process.cwd(), 'data.json')
 
-const saveData = (data) => {
+const saveData = (label, value) => {
+  db.set(label,value)
   db.backup(DB_NAME)
 }
 
@@ -32,7 +33,7 @@ router.post('/', function(req, res, next) {
    */
   emitters.map(emitter => {
     res.io.emit(emitter.label, emitter.content)
-    saveData(db.set(emitter.label, emitter.content))
+    saveData(emitter.label, emitter.content)
   })
   
   res.redirect('./dashboard');
