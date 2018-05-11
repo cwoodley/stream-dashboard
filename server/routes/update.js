@@ -12,11 +12,15 @@ const saveData = (name, value) => {
   console.log('saving:',`${name}: ${value}`)
 }
 
-router.get('/', function(req, res, next) {  
-  res.end();
-});
+const setTickerItems = (data) => {
+  saveData('tickerItems',data)
+}
 
-router.post('/', function(req, res, next) {
+router.get('/', (req, res, next) => {  
+  res.end()
+})
+
+router.post('/', (req, res, next) => {
   const formData = req.body
   const emitting = []
 
@@ -24,7 +28,12 @@ router.post('/', function(req, res, next) {
     const name = formData[i].name
     const value = formData[i].value
 
-    if (value) {
+    if (name === 'tickerItems') {
+      const string = value
+      // format textarea data into array
+      const formattedValue = string.replace(/\r\n/g,"\n").split("\n")
+      setTickerItems(formattedValue)
+    } else if (value) {
       console.log('emitting =>', `${name}: ${value}`)
       res.io.emit(name, value)
       saveData(name, value)
@@ -34,4 +43,4 @@ router.post('/', function(req, res, next) {
   res.end()
 })
 
-module.exports = router;
+export default router
