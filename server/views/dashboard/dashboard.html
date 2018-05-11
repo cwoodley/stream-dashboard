@@ -48,7 +48,7 @@
 
     <template id="ticker-item-template">
       <div style="display: flex;">
-          <input type="text" placeholder="Text" v-model="row.text">
+          <input type="text" placeholder="Text" v-model="row.text" v-bind:name="row.name">
           <button v-on:click="remove"type="button"> X </button>
       </div>
     </template>
@@ -82,7 +82,8 @@
 
           methods: {
               addRow(){
-                this.rows.push({text: ''}); // what to push unto the rows array?
+                const i = this.rows.length + 1
+                this.rows.push({text: '', name: `ticker_${i}`}); // what to push unto the rows array?
               },
               removeRow(index){
                 this.rows.splice(index,1); // why is this removing only the last row?
