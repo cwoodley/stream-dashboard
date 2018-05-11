@@ -21,13 +21,14 @@ router.post('/', function(req, res, next) {
   const emitting = []
 
   for (const i in formData) {
-    if (!formData[i].value) {
-      return
+    const name = formData[i].name
+    const value = formData[i].value
+
+    if (value) {
+      console.log('emitting =>', `${name}: ${value}`)
+      res.io.emit(name, value)
+      saveData(name, value)
     }
-    
-    console.log('emitting =>', `${formData[i].name}: ${formData[i].value}`)
-    res.io.emit(formData[i].name, formData[i].value)
-    saveData(formData[i].name, formData[i].value)
   }
 
   res.end()
