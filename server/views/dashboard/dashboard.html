@@ -8,7 +8,7 @@
   <body>
     <div class="ui main text container">
       <div class="ui container">
-        <form class="ui form" method="POST" action="/update">
+        <form id="form-update" class="ui form" method="POST" action="/update">
           <h4 class="ui dividing header">Game Info</h4>
           <div class="field">
             <label>Current Game</label>
@@ -20,15 +20,8 @@
           </div>
 
           <h4 class="ui dividing header">Ticker Items</h4>
-          <div id="app-tickerfields">
-            <ticker-fields v-for="(row, index) in rows"
-                    :row="row"
-                    :key="index"           
-                    v-on:remove="removeRow(index)">
-            </ticker-fields>
-            <div>
-              <button v-on:click="addRow" type="button"> Add Item </button>
-            </div>
+          <div class="field">
+            <textarea name="tickerItems" autocomplete="off"></textarea>
           </div>
 
           <h4 class="ui dividing header">Debug Flags</h4>
@@ -43,17 +36,13 @@
           </div>
           <button class="ui button" type="submit">Submit</button>
         </form>
+
+        <div>
+          <textarea id="form-values"></textarea>
+        </div>
       </div>
     </div>
 
-    <template id="ticker-item-template">
-      <div style="display: flex;">
-          <input type="text" placeholder="Text" v-model="row.text" v-bind:name="row.name">
-          <button v-on:click="remove"type="button"> X </button>
-      </div>
-    </template>
-
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -61,35 +50,30 @@
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.js"></script>
     <script>
       jQuery(document).ready(function(){
+        const form = $('#form-update');
+        
         $('.ui.dropdown').dropdown();
-      });
 
-      Vue.component('ticker-fields', {
-          props: ['itemdata', 'row'],
-          template: '#ticker-item-template',
-          methods: {
-            remove() {
-                this.$emit('remove');
-            }
-          }
-      })
+        function submitData(endpoint, data) {
+          fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: data
+          })
+          console.log(data);
+        }
 
-      new Vue({
-          el: "#app-tickerfields",
-          data: {
-              rows: [],
-          },
+        form.on('submit',function(e) {
+          e.preventDefault()
+          const formData = JSON.stringify(form.serializeArray());
 
-          methods: {
-              addRow(){
-                const i = this.rows.length + 1
-                this.rows.push({text: '', name: `ticker_${i}`}); // what to push unto the rows array?
-              },
-              removeRow(index){
-                this.rows.splice(index,1); // why is this removing only the last row?
-              }
-          }
-      })      
+          $('#form-values').text(formData)
+
+          submitData(e.target.action, formData);          
+        })
+      });    
     </script>
   </body>
 </html>
