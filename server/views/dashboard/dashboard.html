@@ -18,6 +18,19 @@
             <label>Next Game</label>
             <input type="text" name="nextGame" autocomplete="off" placeholder="Game">
           </div>
+
+          <h4 class="ui dividing header">Ticker Items</h4>
+          <div id="app-tickerfields">
+            <ticker-fields v-for="(row, index) in rows"
+                    :row="row"
+                    :key="index"           
+                    v-on:remove="removeRow(index)">
+            </ticker-fields>
+            <div>
+              <button v-on:click="addRow" type="button"> Add Item </button>
+            </div>
+          </div>
+
           <h4 class="ui dividing header">Debug Flags</h4>
           <div class="field">
               <label>Enabled Flags</label>
@@ -32,6 +45,15 @@
         </form>
       </div>
     </div>
+
+    <template id="ticker-item-template">
+      <div style="display: flex;">
+          <input type="text" placeholder="Text" v-model="row.text">
+          <button v-on:click="remove"type="button"> X </button>
+      </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.1.1.min.js"
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -41,6 +63,32 @@
       jQuery(document).ready(function(){
         $('.ui.dropdown').dropdown();
       });
+
+      Vue.component('ticker-fields', {
+          props: ['itemdata', 'row'],
+          template: '#ticker-item-template',
+          methods: {
+            remove() {
+                this.$emit('remove');
+            }
+          }
+      })
+
+      new Vue({
+          el: "#app-tickerfields",
+          data: {
+              rows: [],
+          },
+
+          methods: {
+              addRow(){
+                this.rows.push({text: ''}); // what to push unto the rows array?
+              },
+              removeRow(index){
+                this.rows.splice(index,1); // why is this removing only the last row?
+              }
+          }
+      })      
     </script>
   </body>
 </html>
