@@ -32,6 +32,7 @@ router.post('/', (req, res, next) => {
       const string = value
       // format textarea data into array
       const formattedValue = string.replace(/\r\n/g,"\n").split("\n")
+      res.io.emit(name, formattedValue)
       setTickerItems(formattedValue)
     } else if (value) {
       console.log('emitting =>', `${name}: ${value}`)
