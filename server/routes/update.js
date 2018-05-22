@@ -27,8 +27,9 @@ router.post('/', (req, res, next) => {
   for (const i in formData) {
     const name = formData[i].name
     const value = formData[i].value
+    const isTickerItem = name === 'tickerItems' && value !== ''
 
-    if (name === 'tickerItems') {
+    if (isTickerItem) {
       const string = value
       // format textarea data into array
       const formattedValue = string.replace(/\r\n/g,"\n").split("\n")
