@@ -12,7 +12,7 @@
           <h4 class="ui dividing header">Game Info</h4>
           <div class="field">
             <label>Current Game</label>
-            <input type="text" name="currentGame" autocomplete="off" placeholder="Game">
+            <input type="text" name="currentGame" value={{currentGame}} autocomplete="off" placeholder="Game">
           </div>
           <div class="field">
             <label>Next Game</label>
@@ -21,18 +21,7 @@
 
           <h4 class="ui dividing header">Ticker Items</h4>
           <div class="field">
-            <textarea name="tickerItems" autocomplete="off"></textarea>
-          </div>
-
-          <h4 class="ui dividing header">Debug Flags</h4>
-          <div class="field">
-              <label>Enabled Flags</label>
-              <select multiple="" class="ui dropdown" name="debug">
-                <option value="">Please select</option>
-                <option value="styling">Styling</option>
-                <option value="connection">Connection</option>
-              </select>
-            </div>
+            <textarea name="tickerItems" autocomplete="off">{{tickerItems}}</textarea>
           </div>
           <button class="ui button" type="submit">Submit</button>
         </form>

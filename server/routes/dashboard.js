@@ -11,14 +11,19 @@ const db = low(adapter)
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(getData('currentGame'))
-
   res.render(
     path.join(__dirname, '../views/dashboard/dashboard.html'),{
-      title: 'Dashboard'
+      title: 'Dashboard',
+      currentGame: getData('currentGame'),
+      tickerItems: getTickerItems()
     }
   )
 })
+
+function getTickerItems() {
+  const items = db.get('tickerItems').value()
+  return items.join('\n')
+}
 
 function getData(key) {
   return db.get(key).value()
