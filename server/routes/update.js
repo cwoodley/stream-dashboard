@@ -1,14 +1,16 @@
 import express from "express"
-import * as db from 'webscaledb'
 import * as path from 'path'
+import low from "lowdb";
+import FileSync from "lowdb/adapters/FileSync";
 
 const router = express.Router();
 
 const DB_NAME = path.join(process.cwd(), 'data.json')
+const adapter = new FileSync(DB_NAME)
+const db = low(adapter)
 
 const saveData = (name, value) => {
-  db.set(name,value)
-  db.backup(DB_NAME)
+  db.set(name,value).write()
   console.log('saving:',`${name}: ${value}`)
 }
 

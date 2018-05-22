@@ -7,18 +7,17 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
+import low from "lowdb";
+import FileSync from "lowdb/adapters/FileSync";
+
 import routes from "./routes/index"
 import dashboard from './routes/dashboard'
 import update from './routes/update'
-
-import * as db from 'webscaledb'
 
 const app = express();
 const server = require('http').Server(app);
 
 const io = require('socket.io')(server);
-
-const DB_NAME = path.join(process.cwd(), 'data.json')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,14 +34,12 @@ app.use('/bower_components',  express.static( path.join(__dirname, '../bower_com
 
 app.use(cors({credentials: true, origin: process.env.CORS_ORIGIN}))
 
-function retrieveData(store) {
-  if (!store) {
-    return
-  }
+const DB_NAME = path.join(process.cwd(), 'data.json')
+const adapter = new FileSync(DB_NAME)
+const db = low(adapter)
 
-  db.restore(store, () => {
-    sendData(db.get())
-  })
+function retrieveData() {
+  sendData(db.get())
 }
 
 function sendData(data) {
@@ -65,7 +62,7 @@ app.use(function(req, res, next){
 });
 
 io.on('connect', (socket) => {
-  retrieveData(DB_NAME)
+  retrieveData()
 })
 
 app.use('/', routes);
