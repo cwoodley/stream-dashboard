@@ -6,6 +6,7 @@ import logger from "morgan"
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import colors from 'colors'
 
 import low from "lowdb";
 import FileSync from "lowdb/adapters/FileSync";
@@ -39,7 +40,7 @@ const adapter = new FileSync(DB_NAME)
 const db = low(adapter)
 
 function retrieveData() {
-  sendData(db.get())
+  sendData(db.getState())
 }
 
 function sendData(data) {
@@ -62,7 +63,13 @@ app.use(function(req, res, next){
 });
 
 io.on('connect', (socket) => {
+  console.log(('client connected, sending data...'))
   retrieveData()
+
+  socket.on('disconnect', () => {
+    const time = new Date()
+    console.log(colors.red('CLIENT DISCONNECT at', time.toLocaleTimeString('en-US')))
+  })
 })
 
 app.use('/', routes);

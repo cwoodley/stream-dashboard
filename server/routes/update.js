@@ -2,6 +2,7 @@ import express from "express"
 import * as path from 'path'
 import low from "lowdb";
 import FileSync from "lowdb/adapters/FileSync";
+import colors from "colors";
 
 const router = express.Router();
 
@@ -37,8 +38,10 @@ router.post('/', (req, res, next) => {
       const formattedValue = string.replace(/\r\n/g,"\n").split("\n")
       res.io.emit(name, formattedValue)
       setTickerItems(formattedValue)
+      console.log(colors.blue('emitting =>', `${name}: ${formattedValue}`))
+      
     } else if (value) {
-      console.log('emitting =>', `${name}: ${value}`)
+      console.log(colors.blue('emitting =>', `${name}: ${value}`))
       res.io.emit(name, value)
       saveData(name, value)
     }
