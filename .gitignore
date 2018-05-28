@@ -3,6 +3,7 @@ build/
 .ds_store
 /client/overlay/themes/
 !/client/overlay/themes/default/
+data.json
 
 # Logs
 logs

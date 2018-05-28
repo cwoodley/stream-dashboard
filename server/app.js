@@ -1,4 +1,5 @@
-require('dotenv').config()
+import dotenv from "dotenv";
+dotenv.config()
 
 import express from "express"
 import path from "path"
@@ -14,6 +15,8 @@ import FileSync from "lowdb/adapters/FileSync";
 import routes from "./routes/index"
 import dashboard from './routes/dashboard'
 import update from './routes/update'
+
+import { getDonationAmount } from "./helpers/getDonationAmount";
 
 const app = express();
 const server = require('http').Server(app);
@@ -31,7 +34,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/bower_components',  express.static( path.join(__dirname, '../bower_components')));
 
 app.use(cors({credentials: true, origin: process.env.CORS_ORIGIN}))
 
@@ -39,31 +41,13 @@ const DB_NAME = path.join(process.cwd(), 'data.json')
 const adapter = new FileSync(DB_NAME)
 const db = low(adapter)
 
-function retrieveData() {
-  sendData(db.getState())
-}
-
-function sendData(data) {
-  const emitters = []
-
-  for (const i in data) {
-    if (data[i]) {
-      emitters.push({label: i, content: data[i]})
-    }
-  }
-
-  emitters.map(emitter => {
-    io.emit(emitter.label, emitter.content)
-  })
-}
-
 app.use(function(req, res, next){
   res.io = io;
   next();
 });
 
 io.on('connect', (socket) => {
-  console.log(('client connected, sending data...'))
+  console.log(('Client connected, sending data.'))
   retrieveData()
 
   socket.on('disconnect', () => {
@@ -71,6 +55,17 @@ io.on('connect', (socket) => {
     console.log(colors.red('CLIENT DISCONNECT at', time.toLocaleTimeString('en-US')))
   })
 })
+
+// scrape donation amounts every 30 mins
+setInterval(() => getDonationAmount()
+  .then((result) => {
+    db.set('donationTotal',result).write()
+    io.emit('donationTotal', result)
+  })
+  .catch((error) => {
+    console.log(colors.red(error))
+  }), 1800000);
+  
 
 app.use('/', routes);
 app.use('/update', update);
@@ -107,5 +102,22 @@ app.use(function(err, req, res, next) {
   });
 });
 
+function retrieveData() {
+  sendData(db.getState())
+}
+
+function sendData(data) {
+  const emitters = []
+
+  for (const i in data) {
+    if (data[i]) {
+      emitters.push({label: i, content: data[i]})
+    }
+  }
+
+  emitters.map(emitter => {
+    io.emit(emitter.label, emitter.content)
+  })
+}
 
 module.exports = {app: app, server: server};
