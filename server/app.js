@@ -16,7 +16,7 @@ import routes from "./routes/index"
 import dashboard from './routes/dashboard'
 import update from './routes/update'
 
-import { getDonationAmount } from "./helpers/getDonationAmount";
+import { getAmount } from "./helpers/getDonationAmount";
 
 const app = express();
 const server = require('http').Server(app);
@@ -56,15 +56,19 @@ io.on('connect', (socket) => {
   })
 })
 
-// scrape donation amounts every 30 mins
-setInterval(() => getDonationAmount()
+const getDonations = (
+  getAmount()
   .then((result) => {
     db.set('donationTotal',result).write()
     io.emit('donationTotal', result)
   })
   .catch((error) => {
     console.log(colors.red(error))
-  }), 1800000);
+  })
+)
+
+// scrape donation amounts every 30 mins
+setInterval(() => getDonations, 1800000);
   
 
 app.use('/', routes);

@@ -9,7 +9,6 @@ const DB_NAME = path.join(process.cwd(), 'data.json')
 const adapter = new FileSync(DB_NAME)
 const db = low(adapter)
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   res.render(
     path.join(__dirname, '../views/dashboard/dashboard.html'),{
@@ -22,10 +21,19 @@ router.get('/', function(req, res, next) {
 
 function getTickerItems() {
   const items = db.get('tickerItems').value()
+
+  if (!items) {
+    return
+  }
+
   return items.join('\n')
 }
 
 function getData(key) {
+  if (!key) {
+    return
+  }
+
   return db.get(key).value()
 }
 

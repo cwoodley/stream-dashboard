@@ -5,7 +5,7 @@ import cheerio from "cheerio";
 
 const url = process.env.DONATIONS_URL
 
-export const getDonationAmount = () => {
+export const getAmount = () => {
   return new Promise((resolve, reject) => {
     request(url, (error, response, html) => {     
       if(!error){
