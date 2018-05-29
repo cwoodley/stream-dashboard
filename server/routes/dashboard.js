@@ -13,7 +13,8 @@ router.get('/', function(req, res, next) {
   res.render(
     path.join(__dirname, '../views/dashboard/dashboard.html'),{
       title: 'Dashboard',
-      currentGame: getData('currentGame'),
+      deadline: getData('deadline'),
+      donationTotal: getData('donationTotal'),
       tickerItems: getTickerItems()
     }
   )
