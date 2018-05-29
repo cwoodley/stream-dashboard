@@ -9,13 +9,11 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import colors from 'colors'
 
-import low from "lowdb";
-import FileSync from "lowdb/adapters/FileSync";
-
 import routes from "./routes/index"
 import dashboard from './routes/dashboard'
 import update from './routes/update'
 
+import { db } from './db'
 import { getAmount } from "./helpers/getDonationAmount";
 
 const app = express();
@@ -37,9 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors({credentials: true, origin: process.env.CORS_ORIGIN}))
 
-const DB_NAME = path.join(process.cwd(), 'data.json')
-const adapter = new FileSync(DB_NAME)
-const db = low(adapter)
+
 
 app.use(function(req, res, next){
   res.io = io;

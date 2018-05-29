@@ -22,8 +22,6 @@ export const getAmount = () => {
           } else {
             reject(Error('Couldnt find .donation-summary node'))
           }
-
-          
       } else {
         reject(Error(`Couldnt open url: ${url}`))
       }

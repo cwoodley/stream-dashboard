@@ -1,18 +1,12 @@
 import express from "express"
 import * as path from 'path'
-import low from "lowdb";
-import FileSync from "lowdb/adapters/FileSync";
 import colors from "colors";
+import { db } from '../db'
 
 const router = express.Router();
 
-const DB_NAME = path.join(process.cwd(), 'data.json')
-const adapter = new FileSync(DB_NAME)
-const db = low(adapter)
-
 const saveData = (name, value) => {
   db.set(name,value).write()
-  console.log('saving:',`${name}: ${value}`)
 }
 
 const setTickerItems = (data) => {
