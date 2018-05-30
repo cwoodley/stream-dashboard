@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config()
 
+import http from 'http';
 import express from "express"
 import path from "path"
 import logger from "morgan"
@@ -12,14 +13,14 @@ import colors from 'colors'
 import routes from "./routes/index"
 import dashboard from './routes/dashboard'
 import update from './routes/update'
+import SocketIO from 'socket.io'
 
 import { db } from './db'
 import { getAmount } from "./helpers/getDonationAmount";
 
 const app = express();
-const server = require('http').Server(app);
-
-const io = require('socket.io')(server);
+app.server = http.createServer(app);
+const io = new SocketIO(app.server);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -120,4 +121,4 @@ function sendData(data) {
   })
 }
 
-module.exports = {app: app, server: server};
+module.exports = {app: app, server: app.server};
