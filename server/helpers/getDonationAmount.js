@@ -2,6 +2,7 @@ require('dotenv').config()
 
 import request from "request";
 import cheerio from "cheerio";
+import { timestamp } from "./timestamp";
 
 const url = process.env.DONATIONS_URL
 
@@ -9,7 +10,7 @@ export const getAmount = () => {
   return new Promise((resolve, reject) => {
     request(url, (error, response, html) => {     
       if(!error){
-          console.log('Finding donation totals...')
+          console.log(timestamp, 'Finding donation totals...')
           const $ = cheerio.load(html)
 
           if ($('.donation-summary').length) {

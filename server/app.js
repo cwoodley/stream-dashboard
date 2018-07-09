@@ -36,8 +36,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors({credentials: true, origin: process.env.CORS_ORIGIN}))
 
-
-
 app.use(function(req, res, next){
   res.io = io;
   next();
@@ -53,20 +51,8 @@ io.on('connect', (socket) => {
   })
 })
 
-const getDonations = (
-  getAmount()
-  .then((result) => {
-    db.set('donationTotal',result).write()
-    io.emit('donationTotal', result)
-  })
-  .catch((error) => {
-    console.log(colors.red(error))
-  })
-)
-
-// scrape donation amounts every 30 mins
-setInterval(() => getDonations, 1800000);
-  
+getDonations()
+setInterval(getDonations, process.env.DONATIONS_REFRESH)
 
 app.use('/', routes);
 app.use('/update', update);
@@ -118,6 +104,17 @@ function sendData(data) {
 
   emitters.map(emitter => {
     io.emit(emitter.label, emitter.content)
+  })
+}
+
+function getDonations() {
+  getAmount()
+  .then((result) => {
+    db.set('donationTotal',result).write()
+    io.emit('donationTotal', result)
+  })
+  .catch((error) => {
+    console.log(colors.red(error))
   })
 }
 
